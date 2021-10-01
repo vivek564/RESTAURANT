@@ -1,13 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyCmI7JOXmx6KONjXYRwTurEOcsW9wHY-Rs",
   authDomain: "contactform-662da.firebaseapp.com",
   projectId: "contactform-662da",
@@ -19,11 +11,12 @@ const firebaseConfig = {
 
 
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Initialize Firebase.
+firebase.initializeApp(firebaseConfig);
+
+
+// Initializing the firebase database.
+const database = firebase.database();
 
 
 //initilize data into database
@@ -36,18 +29,14 @@ const database = getDatabase(app);
 //     });
 // }
 
-//reference message collection
-  
-var messageRef = firebase.database().ref('message');
 
 
-//listen for form submit
-
+// EventListner for form submission.
 document.getElementById('contactForm').addEventListener('submit', submitForm);
 
 
-//submit form
 
+//submit form
 function submitForm(e) {
     e.preventDefault();
 
@@ -67,24 +56,18 @@ function getInputVal(id) {
 
 }
 
-//save data into database
 
+// Inserting data into the database.
 function saveData(name, email, phone, message) {
-  var newMessageRef = messageRef.push();
-  newMessageRef.set({
-    name : name,
-    email : email,
-    phone : phone,
-    message : message
-  });
+	console.log('I am here')
+	database.ref('message/').push().set({
+		name: name,
+		email: email,
+		phone: phone,
+		message: message
+	});
      
 }
-
-
-
-
-
-
 
 
 
